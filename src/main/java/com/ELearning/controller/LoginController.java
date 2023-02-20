@@ -1,7 +1,9 @@
 package com.ELearning.controller;
 
-import java.util.Map;
 
+
+import com.ELearning.Exceptions.InvalidLogin;
+import com.ELearning.Exceptions.UserAlredyExists;
 import com.ELearning.Service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ELearning.Service.SecurityService;
-import com.ELearning.bean.LoginBean;
-import com.ELearning.bean.RegisterBean;
+
+import com.ELearning.model.LoginUser;
+import com.ELearning.model.RegisterUser;
 
 @RestController
 @RequestMapping("/elearning/api")
@@ -24,45 +26,23 @@ public class LoginController {
 
 
 
-
-MainService ms;
+@Autowired
+MainService mainService;
 	
-	@Autowired
-	SecurityService securityService;
-	@PostMapping("/login")
-	 public ResponseEntity<Map<String, String>> loginUser(@RequestBody LoginBean login) throws Exception{
-		
-		System.out.print(login.getUserName());
-		LoginBean log=null;
-		log=ms.loginUser(login.getUserName(),login.getPass());
-		if(log!=null) {
-			 Map<String, String> tokenMap = securityService.getAuthToken(log);
-			 return ResponseEntity.status(HttpStatus.OK).body(tokenMap);
-		}
-		else {
-			throw new Exception("Bad Credentials");
-		}
- 
-		
-		
+	
+	
+	
+	@PostMapping("/signin")
+	public ResponseEntity<?> findUsr(@RequestBody LoginUser login) throws InvalidLogin{
+		return new ResponseEntity<>(mainService.loginUser(login.getUserName(), login.getPass()),HttpStatus.OK);
 		
 	}
 	
-	@PostMapping("/register")
-	public RegisterBean saveUser(@RequestBody RegisterBean reg) throws Exception{
-		RegisterBean register=ms.fetchByUserName(reg.getUserName());
-		System.out.println(register);
 
-		if(register!=null) {
-			throw new Exception("User with this username or email id already exists...");
-		}
-		else {
-			register=ms.signUp(reg);
-			LoginBean log=new LoginBean(register.getUserName(),register.getPass());
-			ms.saveDet(log);
-		}
-		
-		return register;
+	
+	@PostMapping("/register")
+	public ResponseEntity<RegisterUser> saveUser(@RequestBody RegisterUser registerUser) throws UserAlredyExists {
+		return new ResponseEntity<RegisterUser>(mainService.signUpUser(registerUser),HttpStatus.CREATED);
 		
 	}
 

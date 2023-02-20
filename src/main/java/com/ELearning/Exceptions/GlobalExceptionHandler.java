@@ -1,0 +1,22 @@
+package com.ELearning.Exceptions;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@Component
+@ControllerAdvice
+public class GlobalExceptionHandler {
+	
+	@ExceptionHandler(UserAlredyExists.class)
+	public ResponseEntity<String> userAlredyExists(){
+		return new ResponseEntity<String>("user with given email id alreday exists",HttpStatus.CONFLICT);
+	}
+
+	@ExceptionHandler(InvalidLogin.class)
+	public ResponseEntity<String> invalidLogin(){
+		return new ResponseEntity<String>("invalid login details",HttpStatus.BAD_REQUEST);
+	}
+}

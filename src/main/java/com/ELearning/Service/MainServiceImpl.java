@@ -4,54 +4,66 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ELearning.DAO.LoginDao;
 import com.ELearning.DAO.RegisterDao;
-import com.ELearning.bean.LoginBean;
-import com.ELearning.bean.RegisterBean;
+import com.ELearning.Exceptions.InvalidLogin;
+import com.ELearning.Exceptions.UserAlredyExists;
+import com.ELearning.model.LoginUser;
+import com.ELearning.model.RegisterUser;
+
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class MainServiceImpl implements MainService {
   
 	@Autowired
-	LoginDao lg;
+	LoginDao loginDao;
 	
 	@Autowired
-	RegisterDao rg;
+	RegisterDao registerDao;
+	
+	@Autowired
+	SecurityService securityService;
 	
 	@Override
-	public LoginBean loginUser(String userName, String pass) {
+	public List<?> loginUser(String userName, String pass) throws InvalidLogin {
 		// TODO Auto-generated method stub
-		return lg.findLoginBeanByUserNameAndPass(userName, pass);
-		 
+		LoginUser usr = loginDao.findLoginBeanByUserNameAndPass(userName, pass);
+		if(usr != null) {
+			Map<String, String> tokenMap = securityService.getAuthToken(usr);
+			List<?> response = new ArrayList<>(List.of(tokenMap,usr));
+			return response;
+		}
+		throw new InvalidLogin();
 		
+		 
 	}
 
+
 	@Override
-	public RegisterBean signUp(RegisterBean reg) {
+	public RegisterUser signUpUser(RegisterUser registerUser) throws UserAlredyExists {
 		// TODO Auto-generated method student
-		return rg.save(reg) ;
-	}
-
-	@Override
-	public RegisterBean fetchByUserName(String userName) throws Exception {
-		// TODO Auto-generated method stub
-		Optional<RegisterBean> user = Optional.ofNullable(rg.findByUserName(userName));
-		if(user.isPresent()){
-		return rg.findByUserName(userName);}
-		else{
-			return null;
+		Optional<RegisterUser> user = Optional.ofNullable(registerDao.findByUserName(registerUser.getUserName()));
+		if(user != null) {
+			registerDao.save(registerUser);
+			LoginUser loginData = new LoginUser(registerUser.getUserName(), registerUser.getPass());
+			loginDao.save(loginData);
+			return registerUser;
+		}
+//		else if(user != null) {
+//			throw new UserAlredyExists();
+//		}
+		else {
+			throw new UserAlredyExists();
 		}
 	}
-
-	@Override
-	public void saveDet(LoginBean log) {
-		// TODO Auto-generated method stub
-		
-		lg.save(log);
-		
-	}
 	
+	
+
+
 	
 
 }

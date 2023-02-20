@@ -2,12 +2,13 @@ package com.ELearning.Service;
 
 import java.util.Map;
 
-import com.ELearning.bean.LoginBean;
 import org.springframework.stereotype.Service;
+
+import com.ELearning.model.LoginUser;
 
 @Service
 public interface SecurityService {
 	
-	Map<String,String> getAuthToken(LoginBean log);
+	Map<String,String> getAuthToken(LoginUser log);
 
 }

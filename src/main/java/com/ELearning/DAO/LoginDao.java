@@ -1,13 +1,17 @@
 package com.ELearning.DAO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.ELearning.bean.LoginBean;
+//import org.springframework.data.jpa.repository.Query;
+//import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.ELearning.model.LoginUser;
+
 @Repository
-public interface LoginDao extends JpaRepository<LoginBean, Integer> {
-	
-	LoginBean findLoginBeanByUserNameAndPass(String username,String pwd);
+public interface LoginDao extends JpaRepository<LoginUser, Integer> {
+//	@Query("select a from LoginBean a where a.userName=(:name) and a.pass=(:pass)")
+//	LoginBean findLoginBeanByUserNameAndPass(@Param("name")String username,@Param("pass")String pwd);
+
+	LoginUser findLoginBeanByUserNameAndPass(String username,String pwd);
 
 }

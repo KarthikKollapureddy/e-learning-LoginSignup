@@ -1,13 +1,15 @@
 package com.ELearning.DAO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.ELearning.bean.RegisterBean;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface RegisterDao extends JpaRepository<RegisterBean,Integer>{
+import com.ELearning.model.RegisterUser;
 
-	RegisterBean findByUserName(String userName);
+@Repository
+public interface RegisterDao extends JpaRepository<RegisterUser,Integer>{
+
+	RegisterUser findByUserName(String userName);
+	
+	RegisterUser findRegisterBeanByUserNameAndPass(String uName,String pass);
 
 }

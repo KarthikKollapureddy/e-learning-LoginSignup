@@ -1,20 +1,25 @@
 package com.ELearning.Service;
 
-import com.ELearning.bean.LoginBean;
-import com.ELearning.bean.RegisterBean;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+
+import com.ELearning.Exceptions.InvalidLogin;
+import com.ELearning.Exceptions.UserAlredyExists;
+//import com.ELearning.model.LoginUser;
+import com.ELearning.model.RegisterUser;
 
 @Service
 
 public interface MainService
 {
 	
-	public LoginBean loginUser(String userName,String pass);
+	public List<?> loginUser(String userName,String pass) throws InvalidLogin;
 	
-	public RegisterBean signUp(RegisterBean reg);
+	public RegisterUser signUpUser(RegisterUser registerUser) throws UserAlredyExists;
 
-	public RegisterBean fetchByUserName(String userName) throws Exception;
+	
 
-	public void saveDet(LoginBean log);
+	
 
 }

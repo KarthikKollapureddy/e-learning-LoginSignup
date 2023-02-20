@@ -8,8 +8,8 @@ import com.ELearning.model.RegisterUser;
 @Repository
 public interface RegisterDao extends JpaRepository<RegisterUser,Integer>{
 
-	RegisterUser findByUserName(String userName);
+	RegisterUser findRegisterUserByUserName(String userName);
 	
-	RegisterUser findRegisterBeanByUserNameAndPass(String uName,String pass);
+	RegisterUser findRegisterUserByUserNameAndPass(String uName,String pass);
 
 }

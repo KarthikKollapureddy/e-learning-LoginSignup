@@ -12,6 +12,8 @@ public interface LoginDao extends JpaRepository<LoginUser, Integer> {
 //	@Query("select a from LoginBean a where a.userName=(:name) and a.pass=(:pass)")
 //	LoginBean findLoginBeanByUserNameAndPass(@Param("name")String username,@Param("pass")String pwd);
 
-	LoginUser findLoginBeanByUserNameAndPass(String username,String pwd);
+	LoginUser findLoginUserByUserNameAndPass(String username,String pwd);
+	
+	LoginUser findLoginUserByUserName(String userName);
 
 }

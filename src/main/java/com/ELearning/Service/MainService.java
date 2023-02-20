@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.ELearning.Exceptions.InvalidLogin;
 import com.ELearning.Exceptions.UserAlredyExists;
+import com.ELearning.Exceptions.UserNotFound;
+import com.ELearning.model.LoginUser;
 //import com.ELearning.model.LoginUser;
 import com.ELearning.model.RegisterUser;
 
@@ -18,7 +20,7 @@ public interface MainService
 	
 	public RegisterUser signUpUser(RegisterUser registerUser) throws UserAlredyExists;
 
-	
+	LoginUser changePassword(String userName,String newPassword) throws UserNotFound;
 
 	
 

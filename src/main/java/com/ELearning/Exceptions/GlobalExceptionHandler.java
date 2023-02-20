@@ -19,4 +19,8 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String> invalidLogin(){
 		return new ResponseEntity<String>("invalid login details",HttpStatus.BAD_REQUEST);
 	}
+	@ExceptionHandler(UserNotFound.class )
+	public ResponseEntity<String> userNotFound(){
+		return new ResponseEntity<String>("invalid login details",HttpStatus.BAD_REQUEST);
+	}
 }

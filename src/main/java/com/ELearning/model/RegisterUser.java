@@ -4,13 +4,17 @@ package com.ELearning.model;
 //import lombok.Data;
 //import lombok.NoArgsConstructor;
 
+import lombok.Builder;
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+@Builder
 @Entity
+@Data
 @Table(name="user_info")
 public class RegisterUser {
 	

@@ -1,5 +1,8 @@
 package com.ELearning.model;
 
+import lombok.Builder;
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,8 +11,9 @@ import javax.persistence.Id;
 //import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-
+@Builder
 @Entity
+@Data
 @Table(name="login_info")
 public class LoginUser {
 	@Column(name="login_id")

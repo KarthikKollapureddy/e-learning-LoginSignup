@@ -10,12 +10,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+//@Setter
+//@Getter
+//@AllArgsConstructor
+//@NoArgsConstructor
+@Builder
+
 @Entity
 @Table(name="user_info")
 public class RegisterUser {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userId;
 
 	private String userName;
@@ -71,23 +82,34 @@ public class RegisterUser {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public RegisterUser(int userId, String userName, String firstName, String lastName, String pass, int role) {
+//	public RegisterUser(int userId, String userName, String firstName, String lastName, String pass, int role) {
+//		super();
+//		this.userId = userId;
+//		this.userName = userName;
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+//		this.pass = pass;
+//		this.role = role;
+//	}
+	public RegisterUser() {
+		
+	}
+	
+	
+	public RegisterUser(String userName, String firstName, String lastName, String pass, int role) {
 		super();
-		this.userId = userId;
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.pass = pass;
 		this.role = role;
 	}
-	public RegisterUser() {
-		
-	}
 	@Override
 	public String toString() {
 		return "RegisterBean [userId=" + userId + ", userName=" + userName + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", pass=" + pass + ", role=" + role + "]";
 	}
+	
 	
 	
 	

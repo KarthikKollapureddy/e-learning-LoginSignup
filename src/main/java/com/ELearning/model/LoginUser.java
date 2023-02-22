@@ -52,12 +52,12 @@ public class LoginUser {
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
-	public LoginUser(int loginId, String userName, String pass) {
-		super();
-		this.loginId = loginId;
-		this.userName = userName;
-		this.pass = pass;
-	}
+//	public LoginUser(int loginId, String userName, String pass) {
+//		super();
+//		this.loginId = loginId;
+//		this.userName = userName;
+//		this.pass = pass;
+//	}
 	public LoginUser() {
 		
 	}

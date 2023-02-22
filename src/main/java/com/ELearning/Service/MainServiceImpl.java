@@ -30,14 +30,16 @@ public class MainServiceImpl implements MainService {
 	SecurityService securityService;
 	
 	@Override
-	public List<?> loginUser(String userName, String pass) throws InvalidLogin {
+	public Map<String,String> loginUser(String userName, String pass) throws InvalidLogin {
 		// TODO Auto-generated method stub
-		LoginUser user = loginDao.findLoginUserByUserNameAndPass(userName, pass);
+		LoginUser user = loginDao.findByUserNameAndPass(userName, pass);
+		System.out.println("hii"+user);
 		if(user != null) {
 			Map<String, String> tokenMap = securityService.getAuthToken(user);
-			List<?> response = new ArrayList<>(List.of(tokenMap,user));
-			return response;
+			System.out.print(tokenMap.get("message"));
+			return tokenMap;
 		}
+		System.out.print("Hey"+user);
 		throw new InvalidLogin();
 		
 		 
@@ -47,7 +49,7 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public RegisterUser signUpUser(RegisterUser registerUser) throws UserAlredyExists {
 		// TODO Auto-generated method student
-		Optional<RegisterUser> user = Optional.ofNullable(registerDao.findRegisterUserByUserName(registerUser.getUserName()));
+		Optional<RegisterUser> user = Optional.ofNullable(registerDao.findByUserName(registerUser.getUserName()));
 		if(user.isEmpty()) {
 			registerDao.save(registerUser);
 			LoginUser loginData = new LoginUser(registerUser.getUserName(), registerUser.getPass());
@@ -66,8 +68,8 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public LoginUser changePassword(String userName, String newPassword) throws UserNotFound {
 		// TODO Auto-generated method stub
-		Optional<RegisterUser> user = Optional.ofNullable(registerDao.findRegisterUserByUserName(userName));
-		Optional<LoginUser> userLogin = Optional.ofNullable(loginDao.findLoginUserByUserName(userName));
+		Optional<RegisterUser> user = Optional.ofNullable(registerDao.findByUserName(userName));
+		Optional<LoginUser> userLogin = Optional.ofNullable(loginDao.findByUserName(userName));
 		if(user.isEmpty() && userLogin.isEmpty()) {
 			throw new UserNotFound();
 			

@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(UserAlredyExists.class)
 	public ResponseEntity<String> userAlredyExists(){
-		return new ResponseEntity<String>("user with given email id alreday exists",HttpStatus.CONFLICT);
+		return new ResponseEntity<String>("User already exists",HttpStatus.CONFLICT);
 	}
 
 	@ExceptionHandler(InvalidLogin.class)
@@ -21,6 +21,6 @@ public class GlobalExceptionHandler {
 	}
 	@ExceptionHandler(UserNotFound.class )
 	public ResponseEntity<String> userNotFound(){
-		return new ResponseEntity<String>("invalid login details",HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<String>("User not found",HttpStatus.BAD_REQUEST);
 	}
 }

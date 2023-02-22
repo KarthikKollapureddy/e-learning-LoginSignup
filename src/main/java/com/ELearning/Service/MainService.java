@@ -1,6 +1,7 @@
 package com.ELearning.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import com.ELearning.model.RegisterUser;
 public interface MainService
 {
 	
-	public List<?> loginUser(String userName,String pass) throws InvalidLogin;
+	public Map<String, String> loginUser(String userName,String pass) throws InvalidLogin;
 	
 	public RegisterUser signUpUser(RegisterUser registerUser) throws UserAlredyExists;
 

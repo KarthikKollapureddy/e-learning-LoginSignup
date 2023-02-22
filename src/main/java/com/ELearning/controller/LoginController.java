@@ -6,6 +6,9 @@ import com.ELearning.Exceptions.InvalidLogin;
 import com.ELearning.Exceptions.UserAlredyExists;
 import com.ELearning.Exceptions.UserNotFound;
 import com.ELearning.Service.MainService;
+
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +39,8 @@ MainService mainService;
 	
 	
 	@PostMapping("/signin")
-	public ResponseEntity<?> findUsr(@RequestBody LoginUser login) throws InvalidLogin{
-		return new ResponseEntity<>(mainService.loginUser(login.getUserName(), login.getPass()),HttpStatus.OK);
+	public ResponseEntity<Map<String,String>> findUsr(@RequestBody LoginUser login) throws InvalidLogin{
+		return new ResponseEntity<Map<String,String>>(mainService.loginUser(login.getUserName(), login.getPass()),HttpStatus.OK);
 		
 	}
 	
@@ -49,8 +52,8 @@ MainService mainService;
 		
 	}
 	
-	@PatchMapping("changePassword/{userName}/{newPassword}")
-	public ResponseEntity<LoginUser> loginUser(@PathVariable String userName,@PathVariable String newPassword) throws UserNotFound{
+	@PatchMapping("changePassword/{userName}")
+	public ResponseEntity<LoginUser> loginUser(@PathVariable String userName,@RequestBody String newPassword) throws UserNotFound{
 		return new ResponseEntity<LoginUser>(mainService.changePassword(userName, newPassword),HttpStatus.OK);
 	}
 

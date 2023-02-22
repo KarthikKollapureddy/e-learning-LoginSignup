@@ -68,20 +68,29 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public LoginUser changePassword(String userName, String newPassword) throws UserNotFound {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		Optional<RegisterUser> user = Optional.ofNullable(registerDao.findByUserName(userName));
 		Optional<LoginUser> userLogin = Optional.ofNullable(loginDao.findByUserName(userName));
 		if(user.isEmpty() && userLogin.isEmpty()) {
+=======
+//		System.out.println(userName);
+		RegisterUser user = registerDao.findRegisterUserByUserName(userName);
+		LoginUser userLogin = loginDao.findLoginUserByUserName(userName);
+		if(user==null && userLogin ==null) {
+>>>>>>> a017b54f5eb589be4a67b1d476c13f6659180486
 			throw new UserNotFound();
-			
+
 		}
 		else {
-			userLogin.get().setPass(newPassword);
-			user.get().setPass(newPassword);
-			registerDao.saveAndFlush(user.get());
-			loginDao.saveAndFlush(userLogin.get());
-			
-			return userLogin.get();
+			userLogin.setPass(newPassword);
+				user.setPass(newPassword);
+			registerDao.saveAndFlush(user);
+			loginDao.saveAndFlush(userLogin);
+
+			return userLogin;
 		}
+
+
 		
 	}
 	
